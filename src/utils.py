@@ -11,7 +11,7 @@ class Parser:
         self.__path = path
         self.__api = os.getenv('API')
 
-    async def get_response(self, path: str = None):
+    async def get_response(self, path: str = None) -> str:
         if not path and self.__path == '':
             raise ValueError
 
@@ -41,7 +41,7 @@ class Parser:
 
         return result_dict
     
-    async def check_bad_response(self, soup: BeautifulSoup):
+    async def check_bad_response(self, soup: BeautifulSoup) -> None:
         status = soup.find('body').find('p')
         if status:
             raise ValueError(f'{status.text}')
