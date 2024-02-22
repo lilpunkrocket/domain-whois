@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, status
+from fastapi import HTTPException
 
 from src.utils import Parser
 
@@ -10,5 +11,6 @@ async def get_home(path: str=None):
     try:
         response = await parser.parse_response()
     except ValueError:
-        response = {'error': 'Invalid domain path'}
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
+                        detail='Invalid domain path')
     return response
