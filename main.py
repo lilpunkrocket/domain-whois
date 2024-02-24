@@ -1,16 +1,18 @@
 from fastapi import FastAPI, status
 from fastapi import HTTPException
 
-from src.utils import Parser
+import os
+from dotenv import load_dotenv
+
+from utils import DataParser
 
 app = FastAPI()
+load_dotenv()
+
+API = os.getenv('API')
 
 @app.get('/')
 async def get_home(path: str=None):
-    parser = Parser(path)
-    try:
-        response = await parser.parse_response()
-    except ValueError:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
-                        detail='Invalid domain path')
-    return response
+    if not path:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Try add path param to request')
+    return await DataParser.get_response(path=API, params={'domain': path})
