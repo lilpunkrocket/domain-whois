@@ -4,9 +4,9 @@ from fastapi import status
 from aiohttp import ClientTimeout
 
 from .exceptions import DatafetchPathHttpException, DatafetchServerTimeoutHttpException
-from .base import DataFetcher
+from .base import AbstractDataFetcher
 
-class DataFetcherHttp(DataFetcher):
+class DataFetcher(AbstractDataFetcher):
     @staticmethod
     async def fetch_data(path: str = None, params: dict = None) -> str:
         if not path:

@@ -15,4 +15,4 @@ API = os.getenv('API')
 async def get_home(path: str=None):
     if not path:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Try add path param to request')
-    return await DataParser.get_response(path=API, params={'domain': path})
+    return await DataParser.get_response(DataParser, path=API, params={'domain': path})

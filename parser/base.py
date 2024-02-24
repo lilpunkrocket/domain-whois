@@ -1,10 +1,8 @@
-from abc import abstractmethod
+from abc import ABC, abstractstaticmethod
 
-
-class Parser:
+class AbstractParser(ABC):
     '''Abstract class for Parser'''
     
-    @staticmethod
-    @abstractmethod
+    @abstractstaticmethod
     async def parse(data: str = None) -> dict:
         '''Parse to json by default. Raises ParserDataException'''

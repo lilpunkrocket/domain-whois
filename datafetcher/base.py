@@ -1,10 +1,9 @@
-from abc import abstractmethod
+from abc import ABC, abstractstaticmethod
 
 
-class DataFetcher:
+class AbstractDataFetcher(ABC):
     '''Abstract class for DataFetcher'''
 
-    @staticmethod
-    @abstractmethod
+    @abstractstaticmethod
     async def fetch_data(path: str = None, params: dict = None) -> str:
         '''Fetch data from path with params. Raises DataFetchException'''

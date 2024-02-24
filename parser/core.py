@@ -2,10 +2,10 @@ from bs4 import BeautifulSoup
 from fastapi import status
 
 from .exceptions import ParserDataHttpException, ParserDataDomainHttpException
-from .base import Parser
+from .base import AbstractParser
 
 
-class ParserHttp(Parser):
+class Parser(AbstractParser):
     @staticmethod
     async def parse(data: str = None) -> dict:
         if not data:
