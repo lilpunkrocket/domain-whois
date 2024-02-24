@@ -122,7 +122,6 @@ celerybeat.pid
 # Environments
 .env
 .env.docker
-.dockerignore
 .venv
 env/
 venv/
