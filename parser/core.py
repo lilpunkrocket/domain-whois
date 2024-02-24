@@ -1,24 +1,22 @@
-import asyncio
-import aiohttp
 from bs4 import BeautifulSoup
-import os
-from dotenv import load_dotenv
-from .exceptions import ParserDataException, ParserDataDomainException
+from fastapi import status
 
-load_dotenv()
+from .exceptions import ParserDataHttpException, ParserDataDomainHttpException
+from .base import Parser
 
-class Parser:
+
+class ParserHttp(Parser):
     @staticmethod
     async def parse(data: str = None) -> dict:
         if not data:
-            raise ParserDataException('Data could not be blank')
+            raise ParserDataHttpException('Data could not be blank')
 
         soup = BeautifulSoup(data, 'lxml')
 
         no_data_status = soup.find('body').find('p')
 
         if no_data_status:
-            raise ParserDataDomainException('There is no data about this domain')
+            raise ParserDataDomainHttpException(status_code=status.HTTP_404_NOT_FOUND, detail='There is no data about this domain')
 
         all_table_rows = soup.find('table').find_all('tr')
         result_dict = dict()
