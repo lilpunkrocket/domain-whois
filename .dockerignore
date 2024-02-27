@@ -10,6 +10,10 @@ README.md
 .travis.yml
 .taskcluster.yml
 
+# Logs
+logs/
+*.log
+
 # Docker
 docker-compose.yml
 Dockerfile
