@@ -1,14 +1,16 @@
+from src.exceptions import http_exception_handler
+from src.utils import DataParser
+from starlette.exceptions import HTTPException as StarletteHTTPException
 from fastapi import FastAPI, status
 from fastapi import HTTPException
 import os
 from dotenv import load_dotenv
-from middlewares import LogMiddleWare
+from src.middlewares import LogMiddleWare
 
-from utils import DataParser
 
 app = FastAPI()
 app.add_middleware(LogMiddleWare)
-
+app.add_exception_handler(StarletteHTTPException, http_exception_handler)
 
 load_dotenv()
 

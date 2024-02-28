@@ -3,9 +3,11 @@ from logger.core import Logger
 from starlette.middleware.base import BaseHTTPMiddleware
 
 logger = Logger()
+
+
 class LogMiddleWare(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
-        
+
         response = await call_next(request)
 
         log_dict = {
@@ -14,7 +16,7 @@ class LogMiddleWare(BaseHTTPMiddleware):
             'url': request.url,
             'response_status_code': response.status_code,
         }
-
+        
         await logger.log(log_dict)
 
         return response
